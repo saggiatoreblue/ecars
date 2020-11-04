@@ -1,0 +1,15 @@
+{
+    "title": "Request Body Schema",
+    "type": "object",
+    "properties": {
+        "make": { "type": "string" },
+        "msrp": { "type": "integer" },
+        "sellingPrice": { "type": "integer" },
+        "rv": { "type": "integer" },
+        "isRVPercent": { "type": "boolean" },
+        "mf": { "type": "integer" },
+        "salesTax": { "type": "integer" },
+        "totalFees": { "type": "integer" }
+    },
+    "required": ["make", "msrp", "sellingPrice", "rv", "mf"]
+}

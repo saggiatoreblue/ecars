@@ -54,5 +54,8 @@
         "**/*.{js,ts}": [
             "eslint"
         ]
+    },
+    "dependencies": {
+        "lease-calculator": "^1.2.0"
     }
 }
