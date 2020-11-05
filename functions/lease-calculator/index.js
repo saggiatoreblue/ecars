@@ -1,5 +1,5 @@
 const sdk = require('@salesforce/salesforce-sdk');
-const LeaseCalculator = require('lease-calculator');
+const { LeaseCalculator } = require('lease-calculator');
 
 /**
  * Describe Lease-calculator here.

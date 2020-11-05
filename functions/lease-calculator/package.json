@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@salesforce/salesforce-sdk": "^1.4.0",
-    "lease-calculator": "^1.2.0"
+    "lease-calculator": "julianduque/lease-calculator"
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",
