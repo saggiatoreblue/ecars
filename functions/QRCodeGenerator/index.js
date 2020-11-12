@@ -29,9 +29,9 @@ module.exports = async function (event, context, logger) {
         //cloud_name: context.secrets.get('cloudinaryAuth')['cloud_name'],
         //api_key: context.secrets.get('cloudinaryAuth')['api_key'],
         //api_secret: context.secrets.get('cloudinaryAuth')['api_secret']
-        cloud_name: 'btahub',
-        api_key: '958958266589416',
-        api_secret: 'ZjXVetbDAyFoohSJTo3xtRTUJ5w'
+        cloud_name: '',
+        api_key: '',
+        api_secret: ''
     });
 
     const payload = event.data;
@@ -73,7 +73,7 @@ async function uploadImage(qrCode, payload) {
 async function sendEmail(qrCodeURL, payload) {
     console.log('sending email');
     sgMail.setApiKey(
-        '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'
+        ''
     );
     console.log(payload.toAddress);
     const msg = {
