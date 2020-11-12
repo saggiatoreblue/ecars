@@ -1,10 +1,18 @@
 <template>
-    <template if:true={selectedExteriorColor}>
-        <div class="slds-p-horizontal_x-large">
-            <img src={imgUrl} />
+    <div class="slds-grid">
+    <div class="slds-size_1-of-1 slds-align_absolute-center">
+        <div class="slds-grid slds-align_absolute-center">
+            <div class={style}>
+                <template if:true={selectedExteriorColor}>
+                    <div class="slds-p-horizontal_x-large">
+                        <img src={imgUrl} />
+                    </div>
+                </template>
+                <template if:true={error}>
+                    <c-error-panel errors={error}></c-error-panel>
+                </template>            
+            </div>
         </div>
-    </template>
-    <template if:true={error}>
-        <c-error-panel errors={error}></c-error-panel>
-    </template>
+    </div>
+</div>
 </template>

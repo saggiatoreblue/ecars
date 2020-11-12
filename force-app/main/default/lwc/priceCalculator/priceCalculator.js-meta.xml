@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>50.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__RecordPage</target>
+        <target>lightning__AppPage</target>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+        <property name="msrp" label="MSRP" type="Integer"/>
+        <property name="leaseTerm" label="Lease Term" type="String" />
+        <property name="sellingPrice" label="Selling Price" type="Integer"/>
+        <property name="downPayment" label="Down Payment" type="Integer"/>
+        <property name="rv" label="Residual Value" type="Integer" />
+        <property name="mf" label="Money Factor" type="Integer"/>
+        <property name="salesTax" label="Sales Tax" type="Integer"/>
+        <property name="totalFees" label="Total Fees" type="Integer"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

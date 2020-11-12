@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>50.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__RecordPage</target>
+        <target>lightning__AppPage</target>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+        <property name="totalMonthlyPayment" label="Total Monthly Payment" type="String" role="inputOnly" />
+        <property name="totalDriveOffPayment" label="Total Drive Off Payment" type="String" role="inputOnly" />
+        <property name="apr" label="APR" type="String" role="inputOnly" />
+        <property name="totalLeaseCost" label="Total Lease Cost" type="String" role="inputOnly" />
+        <property name="msrp" label="MSRP" type="String" role="inputOnly" />
+        <property name="sellingCost" label="Selling cost" type="String" role="inputOnly" />
+        <property name="msrpDiscount" label="Discount" type="String" role="inputOnly" />
+        <property name="residual" label="Residual Value" type="String" role="inputOnly" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

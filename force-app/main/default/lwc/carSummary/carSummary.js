@@ -5,7 +5,7 @@ const BASE_IMAGE_URL = 'https://sfdc-demo.s3-us-west-1.amazonaws.com/ecars';
 
 export default class CarSummary extends LightningElement {
     @api recordId;
-
+    @api state;
     error;
     selectedExteriorColor;
 
@@ -25,5 +25,12 @@ export default class CarSummary extends LightningElement {
 
     get imgUrl() {
         return `${BASE_IMAGE_URL}/car_${this.selectedExteriorColor.code}.jpg`;
+    }
+
+    get style(){
+        if(this.state === 'flow'){
+            return 'slds-size_1-of-2 slds-p-top_large';
+        }
+        return 'slds-size_1-of-1';
     }
 }

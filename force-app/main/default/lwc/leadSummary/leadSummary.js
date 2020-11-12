@@ -1,5 +1,6 @@
 import { LightningElement, api, wire } from 'lwc';
 import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
+import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 
 import LEAD_FIELD from '@salesforce/schema/Car_Configuration__c.Lead__c';
 import NAME_FIELD from '@salesforce/schema/Lead.Name';
@@ -13,10 +14,17 @@ export default class LeadSummary extends LightningElement {
 
     leadFields = [NAME_FIELD, EMAIL_FIELD, PHONE_FIELD, MOBILE_FIELD];
 
+    connectedCallback(){
+        console.log(this.recordId);
+    }
+
     @wire(getRecord, { recordId: '$recordId', fields })
     configuration;
 
     get lead() {
-        return getFieldValue(this.configuration.data, LEAD_FIELD);
+        if(this.configuration){
+            return getFieldValue(this.configuration.data, LEAD_FIELD);
+        }
+        return this.recordId;
     }
 }

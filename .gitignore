@@ -39,3 +39,6 @@ $RECYCLE.BIN/
 .vscode/*
 !.vscode/extensions.json
 
+# Salesforce Function
+/``dist
+
