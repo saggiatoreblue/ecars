@@ -1,5 +1,5 @@
 {
-  "name": "q-r-code-generator-function",
+  "name": "car-lease-calculator-function",
   "version": "0.0.1",
   "author": "TODO",
   "description": "TODO",
@@ -17,9 +17,7 @@
   },
   "dependencies": {
     "@salesforce/salesforce-sdk": "^1.4.0",
-    "@sendgrid/mail": "^7.4.0",
-    "cloudinary": "^1.23.0",
-    "qrcode": "^1.4.4"
+    "lease-calculator": "julianduque/lease-calculator"
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",

@@ -1,14 +1,14 @@
-public with sharing class QRCodeCreateService {
+public with sharing class NewCarNotificationService {
     @AuraEnabled
-    public static void GenerateQRCode(Id recordId) {
+    public static void sendNotification(Id recordId) {
         Car_Configuration__c config = getCarConfigurationDetails(recordId);
         String colorCode = getColorCode(recordId);
         String payload = generatePayload(recordId, config, colorCode);
-        functions.Function qrCodeFunction = functions.Function.get('QRCodeGenerator');
-        qrCodeFunction.invoke(payload, new MyCallback());
+        functions.Function newCarNotificationFunction = functions.Function.get('NewCarNotification');
+        newCarNotificationFunction.invoke(payload, new FuncCallback());
     }
 
-    public class MyCallback implements functions.FunctionCallback {
+    public class FuncCallback implements functions.FunctionCallback {
         public void handleResponse(functions.FunctionInvocation result) {
             String response = result.getResponse();
             System.debug('Got response ' + response);
@@ -47,5 +47,4 @@ public with sharing class QRCodeCreateService {
         String colorCode = option?.Exterior_Color__c?.split('_')[1]?.toLowercase();
         return colorCode;
     }
-
 }

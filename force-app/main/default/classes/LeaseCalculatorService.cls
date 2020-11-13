@@ -1,5 +1,4 @@
-public with sharing class leaseCalculator {
-
+public with sharing class LeaseCalculatorService {
     // Annotate the method InvocableMethod and give it a label and description
     @InvocableMethod(label='Calculate Lease' description='Calculate auto lease costs')
     public static List<Response> execute(List<Request> requests) {
@@ -14,7 +13,7 @@ public with sharing class leaseCalculator {
             String payload = JSON.serialize(req);
 
             // Instantiate the function
-            functions.Function leaseCalculator = functions.Function.get('leaseCalculator');
+            functions.Function leaseCalculator = functions.Function.get('CarLeaseCalculator');
 
             // Invoke the function
             functions.FunctionInvocation result = leaseCalculator.invoke(payload);

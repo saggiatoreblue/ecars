@@ -1,3 +1,3 @@
 [function]
-name = "leaseCalculator"
+name = "CarLeaseCalculator"
 description = "This is a Salesforce Function."

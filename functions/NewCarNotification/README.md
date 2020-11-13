@@ -1,3 +1,3 @@
-# QRCodeGenerator Function
+# NewCarNotification Function
 
 <Describe the function here>

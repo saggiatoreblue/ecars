@@ -40,4 +40,4 @@ $RECYCLE.BIN/
 !.vscode/extensions.json
 
 # Salesforce Function
-./functions/QRCodeGenerator/secrets
+./functions/NewCarNotification/secrets

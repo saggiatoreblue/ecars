@@ -1,3 +1,3 @@
-# Lease-calculator Function
+# CarLeaseCalculator Function
 
 <Describe the function here>

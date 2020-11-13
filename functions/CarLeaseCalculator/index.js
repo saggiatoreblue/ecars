@@ -37,9 +37,8 @@ module.exports = function (event, context, logger) {
     } catch (err) {
         if (err instanceof LeaseCalculationError) {
             return { error: 'Failed to calculate lease', stack: err.stack };
-        } else {
-            logger.error(err);
-        }
+        } 
+        logger.error(err);
     }
     return leaseValues;
 };

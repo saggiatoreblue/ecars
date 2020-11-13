@@ -5,7 +5,7 @@ const sdk = require('@salesforce/salesforce-sdk');
 const execute = require('../');
 
 /**
- * QRCodeGenerator unit tests.
+ * NewCarNotification unit tests.
  */
 
  describe('Unit Tests', () => {
@@ -27,7 +27,7 @@ const execute = require('../');
         sandbox.restore();
     });
 
-     it('Invoke QRCodeGenerator', async () => {
+     it('Invoke NewCarNotification', async () => {
         // Mock Accounts query
         const accounts = {
             'totalSize':3,
