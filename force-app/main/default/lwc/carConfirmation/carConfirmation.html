@@ -3,37 +3,51 @@
         <div class="slds-size_1-of-1">
             <div class="slds-grid slds-wrap">
                 <div class="slds-size_1-of-2 slds-align_absolute-center">
-                    <div class="slds-p-around_medium slds-align_absolute-center">
+                    <div
+                        class="slds-p-around_medium slds-align_absolute-center"
+                    >
                         <c-car-summary record-id={recordId}></c-car-summary>
                     </div>
                 </div>
                 <div class="slds-size_1-of-2">
                     <div class="slds-grid slds-wrap">
                         <div class="slds-size_1-of-1">
-                            <div class="slds-text-heading_small slds-p-top_small slds-p-bottom_x-small slds-m-bottom_x-small slds-border_bottom" style="font-weight:bold">
+                            <div
+                                class="slds-text-heading_small slds-p-top_xx-small slds-p-bottom_xx-small slds-m-bottom_xx-small slds-border_bottom"
+                                style="font-weight: bold"
+                            >
                                 Contact Details
                             </div>
                             <div class="slds-text-body_regular">
-                                <ul>
-                                    <li style="font-weight:bold">Stephan Garcia</li>
-                                    <li>stephan.garcia@salesforce.com</li>
-                                    <li>702-781-4242</li>
-                                  </ul>                          
-                            </div>        
+                                <template if:true={lead}>
+                                    <ul>
+                                        <li style="font-weight: bold">
+                                           {lead.name}
+                                        </li>
+                                        <li>{lead.email}</li>
+                                        <li>{lead.phone}</li>
+                                    </ul>
+                                </template>
+                            </div>
                         </div>
                         <div class="slds-size_1-of-1">
-                            <div class="slds-text-heading_small slds-p-top_small slds-p-bottom_x-small slds-m-bottom_x-small slds-border_bottom" style="font-weight:bold">
+                            <div
+                                class="slds-text-heading_small slds-p-top_small slds-p-bottom_xx-small slds-m-bottom_xx-small slds-border_bottom"
+                                style="font-weight: bold"
+                            >
                                 Selected Location
                             </div>
                             <div class="slds-text-body_regular">
                                 <ul>
-                                    <li style="font-weight:bold">Centennial Pulsar</li>
+                                    <li style="font-weight: bold">
+                                        Centennial Pulsar
+                                    </li>
                                     <li>6200 Centennial Center Blvd</li>
                                     <li>Las Vegas</li>
                                     <li>NV</li>
                                     <li>89149</li>
-                                  </ul>                          
-                            </div>        
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>

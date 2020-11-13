@@ -9,4 +9,12 @@ export default class LeaseDetails extends LightningElement {
     @api sellingCost;
     @api msrpDiscount;
     @api residual;
+
+    get aprCalc(){
+        return this.apr/100;
+    }
+
+    get discountCalc(){
+        return this.msrpDiscount/100;
+    }
 }

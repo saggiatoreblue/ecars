@@ -3,6 +3,7 @@ const QRCode = require('qrcode');
 const cloudinary = require('cloudinary').v2;
 const sgMail = require('@sendgrid/mail');
 
+// QR Code formatting options
 const options = {
     color: {
         dark: '#1A4A83', // Pulsar Blue
@@ -10,88 +11,115 @@ const options = {
     }
 };
 
-/**
- * Describe QRCodeGenerator here.
- *
- * The exported method is the entry point for your code when the function is invoked.
- *
- * Following parameters are pre-configured and provided to your function on execution:
- * @param {import("@salesforce/salesforce-sdk").InvocationEvent} event:   represents the data associated with the occurrence of an event, and
- *                 supporting metadata about the source of that occurrence.
- * @param {import("@salesforce/salesforce-sdk").Context} context: represents the connection to Evergreen and your Salesforce org.
- * @param {import("@salesforce/salesforce-sdk").Logger} logger:  logging handler used to capture application logs and traces specific
- *                 to a given execution of a function.
- */
+// Custom Error Handlers
+class GenerateQRCodeError extends Error {
+    constructor(...args) {
+        super(...args);
+        this.name = this.constructor.name;
+        Error.captureStackTrace(this, GenerateQRCodeError);
+    }
+}
 
+class UploadImageError extends Error {
+    constructor(...args) {
+        super(...args);
+        this.name = this.constructor.name;
+        Error.captureStackTrace(this, UploadImageError);
+    }
+}
+
+class SendEmailError extends Error {
+    constructor(...args) {
+        super(...args);
+        this.name = this.constructor.name;
+        Error.captureStackTrace(this, SendEmailError);
+    }
+}
+
+// Function Body
 module.exports = async function (event, context, logger) {
-    console.log('im updated!');
-    cloudinary.config({
-        //cloud_name: context.secrets.get('cloudinaryAuth')['cloud_name'],
-        //api_key: context.secrets.get('cloudinaryAuth')['api_key'],
-        //api_secret: context.secrets.get('cloudinaryAuth')['api_secret']
-        cloud_name: '',
-        api_key: '',
-        api_secret: ''
-    });
+    // Get Secrets from the function context
+    const { cloudinary_cloud_name, cloudinary_api_key, cloudinary_api_secret, sendgrid_key } = Object.fromEntries(context.secrets.get(
+        'secrets'
+    ));
 
-    const payload = event.data;
-    /*
-    QRCode.toDataURL(event.data.url, options, function (err, qrCode) {
-        if (err) throw err;
-        console.log(qrCode);
-        const url = uploadImage(qrCode, payload);
-    });
-    */
-    const generateQR = async (text) => {
-        try {
-            return await QRCode.toDataURL(event.data.url, options);
-        } catch (err) {
-            return console.error(err);
+    // Assign the properties from the invocation payload
+    const { id, url, toAddress, carImage, firstName } = event.data;
+
+    let qrCodeUrl = null;
+    try {
+        // Generate the QR Code as String
+        const qrCode = await generateQR(url);
+        // Upload the image to cloudinary
+        qrCodeUrl = await uploadImage({ qrCode, id, cloudinary_cloud_name, cloudinary_api_key, cloudinary_api_secret });
+        // Send email to the contact
+        await sendEmail({ qrCodeUrl, toAddress, carImage, firstName, sendgrid_key });
+    } catch (err) {
+        if (err instanceof GenerateQRCodeError) {
+            return { error: 'Failed to generate a QR code', stack: err.stack };
+        } else if (err instanceof UploadImageError) {
+            return { error: 'Failed to upload an image', stack: err.stack };
+        } else if (err instanceof SendEmailError) {
+            return { error: 'Failed to send an email', stack: err.stack };
+        } else {
+            logger.error(err);
         }
-    };
-    const qrCode = await generateQR();
-    const url = await uploadImage(qrCode, payload);
+    }
+    // Return the qrcode image url
     return url;
 };
 
-async function uploadImage(qrCode, payload) {
-    console.log('upload image');
-    cloudinary.uploader.upload(
-        qrCode,
-        { tags: 'basic_sample', public_id: payload.id },
-        function (err, image) {
-            if (err) {
-                console.warn(err);
-            }
-            console.log('image.url' + image.url);
-            sendEmail(image.url, payload);
-            return image.url;
-        }
-    );
+// Generate the QR Code using the QRCode Module
+async function generateQR(text) {
+    try {
+        return QRCode.toDataURL(text, options);
+    } catch (err) {
+        throw new GenerateQRCodeError(err.message);
+    }
 }
 
-async function sendEmail(qrCodeURL, payload) {
-    console.log('sending email');
-    sgMail.setApiKey(
-        ''
-    );
-    console.log(payload.toAddress);
+// Upload the QR Code to an image hosting service
+async function uploadImage({ qrCode, id, cloudinary_cloud_name, cloudinary_api_key, cloudinary_api_secret }) {
+    //Set cloudinary secrets
+    cloudinary.config({
+        cloud_name: cloudinary_cloud_name,
+        api_key: cloudinary_api_key,
+        api_secret: cloudinary_api_secret
+    });
+    // Generate a promise and upload the QR Code
+    return new Promise((resolve, reject) => {
+        cloudinary.uploader.upload(qrCode, { public_id: id }, (err, image) => {
+            if (err) {
+                reject(new UploadImageError(err.message));
+                return;
+            }
+            resolve(image.url);
+        });
+    });
+}
+
+// Send a personalized email to the contact
+async function sendEmail({ qrCodeUrl, toAddress, carImage, firstName, sendgrid_key }) {
+    // Add the api key
+    sgMail.setApiKey(sendgrid_key);
+    // Format the email
     const msg = {
-        to: payload.toAddress, // Change to your recipient
-        from: 'stephanwgarcia@gmail.com', // Change to your verified sender
+        to: toAddress,
+        from: {
+            email: 'stephanwgarcia@gmail.com',
+            name: 'Pulsar Motors'
+        },
         dynamicTemplateData: {
-            qrcode: qrCodeURL,
-            carimage: payload.carImage,
-            firstname: 'Stephan'
+            qrcode: qrCodeUrl,
+            carimage: carImage,
+            firstname: firstName
         },
         templateId: 'd-845517024e0f404e8fa2aa4fe5e62eac'
     };
-    sgMail
-        .send(msg)
-        .then(() => {
-            console.log('Email sent');
-        })
-        .catch((error) => {
-            console.error(error);
-        });
+    // Send the email
+    try {
+        await sgMail.send(msg);
+    } catch (err) {
+        throw new SendEmailError(err.message);
+    }
 }

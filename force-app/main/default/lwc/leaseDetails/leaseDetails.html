@@ -1,16 +1,16 @@
 <template>
     <div class="slds-grid slds-wrap">
-        <div class="slds-size_1-of-1 slds-p-around_large">
+        <div class="slds-size_1-of-1 slds-p-left_xx-large slds-p-right_xx-large">
             <div class="slds-grid slds-wrap">
                 <div class="slds-size_1-of-1">
-                    <div class="slds-text-body_regular slds-text-align_center">
-                        Total Monthly Payment
-                    </div>
-                    <div
-                        class="slds-text-heading_medium slds-text-align_center"
-                        style="font-weight: bold"
-                    >
-                        {totalMonthlyPayment}
+                    <div class="slds-text-heading_small slds-text-align_center">Total Monthly Payment</div>
+                    <div class="slds-text-heading_large slds-text-align_center" style="font-weight: bold">
+                        <lightning-formatted-number
+                            value={totalMonthlyPayment}
+                            format-style="currency"
+                            currency-code="USD"
+                        >
+                        </lightning-formatted-number>
                     </div>
                 </div>
                 <div class="slds-size_1-of-1 slds-p-bottom_xx-small slds-m-bottom_xx-small slds-border_bottom">
@@ -19,11 +19,9 @@
                             <div class="slds-text-body_regular">MSRP</div>
                         </div>
                         <div class="slds-col">
-                            <div
-                                class="slds-text-body_regular slds-text-align_right"
-                                style="font-weight: bold"
-                            >
-                                {msrp}
+                            <div class="slds-text-body_regular slds-text-align_right" style="font-weight: bold">
+                                <lightning-formatted-number value={msrp} format-style="currency" currency-code="USD">
+                                </lightning-formatted-number>
                             </div>
                         </div>
                     </div>
@@ -34,11 +32,13 @@
                             <div class="slds-text-body_regular">Selling cost</div>
                         </div>
                         <div class="slds-col">
-                            <div
-                                class="slds-text-body_regular slds-text-align_right"
-                                style="font-weight: bold"
-                            >
-                                {sellingCost}
+                            <div class="slds-text-body_regular slds-text-align_right" style="font-weight: bold">
+                                <lightning-formatted-number
+                                    value={sellingCost}
+                                    format-style="currency"
+                                    currency-code="USD"
+                                >
+                                </lightning-formatted-number>
                             </div>
                         </div>
                     </div>
@@ -49,57 +49,53 @@
                             <div class="slds-text-body_regular">Discount</div>
                         </div>
                         <div class="slds-col">
-                            <div
-                                class="slds-text-body_regular slds-text-align_right"
-                                style="font-weight: bold"
-                            >
-                                {msrpDiscount}
+                            <div class="slds-text-body_regular slds-text-align_right" style="font-weight: bold">
+                                <lightning-formatted-number value={discountCalc} format-style="percent">
+                                </lightning-formatted-number>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="slds-size_1-of-1 slds-p-bottom_xx-small slds-m-bottom_xx-small slds-border_bottom">
-                    <div class="slds-grid slds-wrap slds-grid-align_spread">
-                        <div class="slds-col">
-                            <div class="slds-text-body_regular">APR</div>
-                        </div>
-                        <div class="slds-col">
-                            <div
-                                class="slds-text-body_regular slds-text-align_right"
-                                style="font-weight: bold"
-                            >
-                                {apr}
-                            </div>
+            </div>
+            <div class="slds-size_1-of-1 slds-p-bottom_xx-small slds-m-bottom_xx-small slds-border_bottom">
+                <div class="slds-grid slds-wrap slds-grid-align_spread">
+                    <div class="slds-col">
+                        <div class="slds-text-body_regular">APR</div>
+                    </div>
+                    <div class="slds-col">
+                        <div class="slds-text-body_regular slds-text-align_right" style="font-weight: bold">
+                            <lightning-formatted-number value={aprCalc} format-style="percent">
+                            </lightning-formatted-number>
                         </div>
                     </div>
                 </div>
-                <div class="slds-size_1-of-1 slds-p-bottom_xx-small slds-m-bottom_xx-small slds-border_bottom">
-                    <div class="slds-grid slds-wrap slds-grid-align_spread">
-                        <div class="slds-col">
-                            <div class="slds-text-body_regular">Residual Value</div>
-                        </div>
-                        <div class="slds-col">
-                            <div
-                                class="slds-text-body_regular slds-text-align_right"
-                                style="font-weight: bold"
-                            >
-                                {residual}
-                            </div>
+            </div>
+            <div class="slds-size_1-of-1 slds-p-bottom_xx-small slds-m-bottom_xx-small slds-border_bottom">
+                <div class="slds-grid slds-wrap slds-grid-align_spread">
+                    <div class="slds-col">
+                        <div class="slds-text-body_regular">Residual Value</div>
+                    </div>
+                    <div class="slds-col">
+                        <div class="slds-text-body_regular slds-text-align_right" style="font-weight: bold">
+                            <lightning-formatted-number value={residual} format-style="currency" currency-code="USD">
+                            </lightning-formatted-number>
                         </div>
                     </div>
                 </div>
-                <div class="slds-size_1-of-1 slds-p-bottom_xx-small slds-m-bottom_xx-small slds-border_bottom">
-                    <div class="slds-grid slds-wrap slds-grid-align_spread">
-                        <div class="slds-col">
-                            <div class="slds-text-body_regular">Total Drive Off Payment</div>
-                        </div>
-                        <div class="slds-col">
-                            <div
-                                class="slds-text-body_regular slds-text-align_right"
-                                style="font-weight: bold"
+            </div>
+            <div class="slds-size_1-of-1 slds-p-bottom_xx-small slds-m-bottom_xx-small">
+                <div class="slds-grid slds-wrap slds-grid-align_spread">
+                    <div class="slds-col">
+                        <div class="slds-text-body_regular">Total Drive Off Payment</div>
+                    </div>
+                    <div class="slds-col">
+                        <div class="slds-text-body_regular slds-text-align_right" style="font-weight: bold">
+                            <lightning-formatted-number
+                                value={totalDriveOffPayment}
+                                format-style="currency"
+                                currency-code="USD"
                             >
-                                {totalDriveOffPayment}
-                            </div>
+                            </lightning-formatted-number>
                         </div>
                     </div>
                 </div>

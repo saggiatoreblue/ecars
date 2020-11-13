@@ -13,7 +13,6 @@ export default class PriceCalculator extends LightningElement {
     handleInputChange(event) {
         let value = event.target.value;
         let name = event.target.name;
-        console.log(event.target.value);
         switch (name) {
             case 'msrp':
                 this.msrp = value;
@@ -29,6 +28,9 @@ export default class PriceCalculator extends LightningElement {
                 break;
             case 'downPayment':
                 this.downPayment = value;
+                break;
+            case 'leaseTerm':
+                this.leaseTerm = value;
                 break;
             default:
                 break;

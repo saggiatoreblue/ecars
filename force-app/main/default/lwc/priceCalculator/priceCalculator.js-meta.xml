@@ -10,7 +10,7 @@
     <targetConfigs>
         <targetConfig targets="lightning__FlowScreen">
         <property name="msrp" label="MSRP" type="Integer"/>
-        <property name="leaseTerm" label="Lease Term" type="String" />
+        <property name="leaseTerm" label="Lease Term" type="Integer" />
         <property name="sellingPrice" label="Selling Price" type="Integer"/>
         <property name="downPayment" label="Down Payment" type="Integer"/>
         <property name="rv" label="Residual Value" type="Integer" />
