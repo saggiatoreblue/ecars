@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionCalls>
         <name>Send_WebPush_notifications</name>
@@ -8,8 +8,8 @@
         <actionName>WebPushService</actionName>
         <actionType>apex</actionType>
     </actionCalls>
-    <interviewLabel
-    >Send WebPush notification on new vehicle {!$Flow.CurrentDateTime}</interviewLabel>
+    <apiVersion>49.0</apiVersion>
+    <interviewLabel>Send WebPush notification on new vehicle {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Send WebPush notification on new vehicle</label>
     <loops>
         <name>Iterate_over_leads</name>
@@ -41,8 +41,7 @@
         <label>Fetch Lead records</label>
         <locationX>228</locationX>
         <locationY>60</locationY>
-        <assignNullValuesIfNoRecordsFound
-        >false</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Iterate_over_leads</targetReference>
         </connector>
